@@ -1,7 +1,9 @@
+# This file is for text generation and other variables
+
 import random
 import output
 
-word_amount = 10
+word_amount = 20
 
 exit_icon = output.exit
 ok_icon = output.ok
@@ -27,6 +29,3 @@ def list_to_string(input_string):
     output_string = " "
     return (output_string.join(input_string))
 
-
-if __name__ == "__main__":
-    print(type_test)
