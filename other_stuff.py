@@ -3,7 +3,7 @@
 import random
 import output
 
-word_amount = 20
+word_amount = 3
 
 exit_icon = output.exit
 ok_icon = output.ok
@@ -27,5 +27,4 @@ type_test = generate_test(word_amount)
 
 def list_to_string(input_string):
     output_string = " "
-    return (output_string.join(input_string))
-
+    return output_string.join(input_string)
