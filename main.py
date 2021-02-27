@@ -23,6 +23,8 @@ while True:
     if event == '-OK-' and values['-INPUT-'] == words:
         test_running = False
         test_done = True
+        print(other_stuff.word_amount)
+        print(time_taken)
         window['-TEXT-'].update(f"Nice! Your speed was {round(other_stuff.word_amount / (time_taken / 60))} WPM.")
         window.read(timeout=0)
         time.sleep(2)
@@ -32,28 +34,28 @@ while True:
     elif event == '-OK-' and values['-INPUT-'] != words:
         window['-TEXT-'].update("Oops! It looks like there is a mistake!")
 
-    if time_taken == 1:
-        window['-TIMER-'].update(f"{time_taken} second")
+    if round(time_taken) == 1:
+        window['-TIMER-'].update(f"{round(time_taken)} second")
 
     else:
-        window['-TIMER-'].update(f"{time_taken} seconds")
+        window['-TIMER-'].update(f"{round(time_taken)} seconds")
 
     if len(values['-INPUT-']) > 0 and not test_done:
         test_running = True
 
     if not test_running:
-        start_time = time.time() + .5
+        start_time = time.time()
 
     else:
         # noinspection PyUnboundLocalVariable
-        time_taken = round(time.time() - start_time)
+        time_taken = time.time() - start_time
 
     # End program if user presses the X icon
     if event == '-EXIT-' or event == sg.WIN_CLOSED:
         exit()
 
 
-window2 = sg.Window('Enter Name', enter_name_layout, no_titlebar=False, grab_anywhere=False)
+window2 = sg.Window('Enter Initials', enter_name_layout, no_titlebar=False, grab_anywhere=False)
 
 
 while True:
