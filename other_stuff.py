@@ -3,7 +3,7 @@
 import random
 import output
 
-word_amount = 1
+word_amount = 15
 
 exit_icon = output.exit
 ok_icon = output.ok
