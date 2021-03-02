@@ -25,8 +25,6 @@ while True:
     if values['-INPUT-'] == words:
         test_running = False
         test_done = True
-        print(other_stuff.word_amount)
-        print(time_taken)
         score = round(other_stuff.word_amount / (time_taken / 60))
         window['-TEXT-'].update(f"Nice! Your speed was {score} WPM.")
         window.read(timeout=1)
@@ -37,11 +35,8 @@ while True:
     elif event == '-OK-' and values['-INPUT-'] != words:
         window['-TEXT-'].update("Oops! It looks like there is a mistake!")
 
-    if round(time_taken) == 1:
-        window['-TIMER-'].update(f"{round(time_taken)} second")
-
     else:
-        window['-TIMER-'].update(f"{round(time_taken)} seconds")
+        window['-TIMER-'].update(f"{round(time_taken, 9)} seconds")
 
     if len(values['-INPUT-']) > 0 and not test_done:
         test_running = True
@@ -103,12 +98,12 @@ current_score = {'initials': initials, 'score': score}
 scores = []
 
 # append current score to score file
-with open('scores.pkl', 'ab') as f:
+with open('scores', 'ab') as f:
     pickle.dump(current_score, f)
     f.close()
 
 # get scores and append to scores list
-with open('scores.pkl', 'rb') as f:
+with open('scores', 'rb') as f:
     try:
         while True:
             scores.append(pickle.load(f))
@@ -119,9 +114,6 @@ with open('scores.pkl', 'rb') as f:
 scores = sorted(scores, key=lambda k: k['score'])
 scores.reverse()
 
-
-for score_item in scores:
-    print(score_item['initials'], score_item['score'])
 
 while True:
     event, values = window3.read(timeout=20)

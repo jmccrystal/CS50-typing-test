@@ -1,20 +1,20 @@
 # This file is for text generation and other variables
-
+import pickle
 import random
 import output
 
-word_amount = 15
+word_amount = 20
 
 exit_icon = output.exit
 ok_icon = output.ok
 
 
-def get_words():
-    with open("words.txt", "r") as file:
-        return file.read().split(', ')
-
-
-words = get_words()
+with open('words', 'rb') as f:
+    try:
+        while True:
+            words = pickle.load(f)
+    except EOFError:
+        f.close()
 
 
 # Generate the random words from the list of words
