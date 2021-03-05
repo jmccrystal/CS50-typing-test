@@ -3,6 +3,7 @@ import time
 import PySimpleGUI as sg
 import other_stuff
 import layouts
+import sys
 
 time_taken = 0
 
@@ -10,7 +11,7 @@ type_test_layout = layouts.type_test_layout
 enter_name_layout = layouts.enter_name_layout
 leaderboard_layout = layouts.leaderboard_layout
 
-words = other_stuff.list_to_string(other_stuff.type_test)
+words = other_stuff.type_test
 
 # Create the window
 window = sg.Window('Typing Test', type_test_layout, no_titlebar=False, grab_anywhere=False)
@@ -21,25 +22,30 @@ test_done = False
 # Typing test event loop
 while True:
     event, values = window.read(timeout=1)
-
-    if values['-INPUT-'] == words:
-        test_running = False
-        test_done = True
-        score = round(other_stuff.word_amount / (time_taken / 60))
-        window['-TEXT-'].update(f"Nice! Your speed was {score} WPM.")
-        window.read(timeout=1)
-        time.sleep(2)
-        window.close()
-        break
-
-    elif event == '-OK-' and values['-INPUT-'] != words:
-        window['-TEXT-'].update("Oops! It looks like there is a mistake!")
+    try:
+        if values['-INPUT-'] == words:
+            test_running = False
+            test_done = True
+            score = round(other_stuff.word_amount / (time_taken / 60))
+            window['-TEXT-'].update(f"Nice! Your speed was {score} WPM.")
+            window.read(timeout=1)
+            time.sleep(2)
+            window.close()
+            break
+    except TypeError:
+        pass
 
     else:
-        window['-TIMER-'].update(f"{round(time_taken, 9)} seconds")
+        window['-TIMER-'].update(f"{round(time_taken, 1)} seconds")
 
-    if len(values['-INPUT-']) > 0 and not test_done:
-        test_running = True
+    if event == '-OK-' and values['-INPUT-'] != words:
+        window['-TEXT-'].update("Oops! It looks like there is a mistake!")
+
+    try:
+        if len(values['-INPUT-']) > 0 and not test_done:
+            test_running = True
+    except TypeError:
+        pass
 
     if not test_running:
         start_time = time.time()
@@ -50,7 +56,7 @@ while True:
 
     # End program if user presses the X icon
     if event == '-EXIT-' or event == sg.WIN_CLOSED:
-        exit()
+        sys.exit()
 
 window2 = sg.Window('Enter Initials', enter_name_layout, no_titlebar=False, grab_anywhere=False)
 
@@ -75,7 +81,7 @@ while True:
 
     # End program if user presses the X icon
     if event == '-EXIT-' or event == sg.WIN_CLOSED:
-        exit()
+        sys.exit()
 
 window3 = sg.Window('Leaderboard', leaderboard_layout, no_titlebar=False, grab_anywhere=False)
 
@@ -97,29 +103,44 @@ window3 = sg.Window('Leaderboard', leaderboard_layout, no_titlebar=False, grab_a
 current_score = {'initials': initials, 'score': score}
 scores = []
 
-# append current score to score file
-with open('scores', 'ab') as f:
-    pickle.dump(current_score, f)
-    f.close()
 
 # get scores and append to scores list
-with open('scores', 'rb') as f:
+with open(other_stuff.resource_path('scores.pkl'), 'rb') as f:
     try:
         while True:
             scores.append(pickle.load(f))
     except EOFError:
         f.close()
 
-# sort list by score
+
+# append current score to score file and list
+with open(other_stuff.resource_path('scores.pkl'), 'ab') as f:
+    pickle.dump(current_score, f)
+    scores.append(current_score)
+    f.close()
+
+
+# Thank you to https://stackoverflow.com/users/14796104/vibhu-upamanyu for
+# this code that removes duplicate initials and sorts by the initial's
+# highest score
+dict_of_dict = dict()
+for dic in scores:
+    if dic['initials'] not in dict_of_dict:
+        dict_of_dict[dic['initials']] = dic
+    else:
+        if dic['score'] > dict_of_dict[dic['initials']]['score']:
+            dict_of_dict[dic['initials']] = dic
+
+scores = list(dict_of_dict.values())
+
 scores = sorted(scores, key=lambda k: k['score'])
 scores.reverse()
 
-
 while True:
-    event, values = window3.read(timeout=20)
+    event, values = window3.read(timeout=1)
     for i, score_dict in enumerate(scores):
         if i < 10:
             window3[f'-P{i + 1}-'].update(f"{i + 1}: {scores[i]['initials']} - {scores[i]['score']} wpm")
 
     if event == '-EXIT-' or event == sg.WIN_CLOSED:
-        exit()
+        sys.exit()

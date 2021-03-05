@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 import other_stuff
 
-words = other_stuff.list_to_string(other_stuff.type_test)
+words = other_stuff.type_test
 time_taken = 0
 
 sg.theme('Dark')
@@ -11,12 +11,14 @@ sg.SetOptions(font="Bahnschrift 25")
 type_test_layout = [
     [sg.Text(
         "Quick, type!",
-        size=(33, None),
+        size=(29, None),
+        pad=(1, 1),
+        justification='left',
         key='-TEXT-'),
 
-        sg.Text(0,
-                size=(11, 1),
-                justification='right',
+        sg.Text("0 seconds",
+                size=(15, None),
+                justification='r',
                 key='-TIMER-')],
 
     [sg.Input(

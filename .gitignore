@@ -2,7 +2,7 @@
 .idea
 
 # Score file
-scores
+scores.pkl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
