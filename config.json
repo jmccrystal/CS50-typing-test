@@ -11,7 +11,7 @@
   },
   {
    "optionDest": "onefile",
-   "value": true
+   "value": false
   },
   {
    "optionDest": "console",
@@ -20,6 +20,10 @@
   {
    "optionDest": "icon_file",
    "value": "C:/Users/James/Documents/GitHub/create-task/create-task/keyboard.ico"
+  },
+  {
+   "optionDest": "name",
+   "value": "Typing Test"
   },
   {
    "optionDest": "ascii",
@@ -68,6 +72,6 @@
  ],
  "nonPyinstallerOptions": {
   "increaseRecursionLimit": true,
-  "manualArguments": ""
+  "manualArguments": " "
  }
 }

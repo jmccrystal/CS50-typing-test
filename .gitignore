@@ -1,3 +1,9 @@
+# auto-py-to-exe config
+config.json
+
+# Binary foler
+binary
+
 # PyCharm stuff
 .idea
 
