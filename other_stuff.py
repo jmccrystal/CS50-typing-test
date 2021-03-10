@@ -11,17 +11,21 @@ exit_icon = output.exit
 ok_icon = output.ok
 
 
-# Thanks to https://stackoverflow.com/users/1889973/max for this function
-# for using files in the binary
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
+# not storing in onefile mode anymore, so no need for this function
+# # Thanks to https://stackoverflow.com/users/1889973/max for this function
+# # for using files in the binary
+# def resource_path(relative_path):
+#     """ Get absolute path to resource, works for dev and for PyInstaller """
+#     try:
+#         # PyInstaller creates a temp folder and stores path in _MEIPASS
+#         base_path = sys._MEIPASS
+#     except Exception:
+#         base_path = os.path.abspath(".")
+#
+#     return os.path.join(base_path, relative_path)
 
-    return os.path.join(base_path, relative_path)
+def resource_path(relative_path):
+    return os.path.join('.', relative_path)
 
 
 with open(resource_path('words.pkl'), 'rb') as f:
