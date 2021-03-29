@@ -19,11 +19,19 @@ window = sg.Window('Typing Test', type_test_layout, no_titlebar=False, grab_anyw
 test_running = False
 test_done = False
 
+
+def verify_test(user_typing):
+    if words == user_typing:
+        return True
+    else:
+        return False
+
+
 # Typing test event loop
 while True:
     event, values = window.read(timeout=1)
     try:
-        if values['-INPUT-'] == words:
+        if verify_test(values['-INPUT-']):
             test_running = False
             test_done = True
             score = round(other_stuff.word_amount / (time_taken / 60))
@@ -35,11 +43,11 @@ while True:
     except TypeError:
         pass
 
-    else:
-        window['-TIMER-'].update(f"{round(time_taken, 1)} seconds")
+    window['-TIMER-'].update(f"{round(time_taken, 1)} seconds")
 
-    if event == '-OK-' and values['-INPUT-'] != words:
-        window['-TEXT-'].update("Oops! It looks like there is a mistake!")
+    if event == '-OK-':
+        if not verify_test(values['-INPUT-']):
+            window['-TEXT-'].update("Oops! It looks like there is a mistake!")
 
     try:
         if len(values['-INPUT-']) > 0 and not test_done:
@@ -103,7 +111,6 @@ window3 = sg.Window('Leaderboard', leaderboard_layout, no_titlebar=False, grab_a
 current_score = {'initials': initials, 'score': score}
 scores = []
 
-
 # get scores and append to scores list
 with open(other_stuff.resource_path('scores.pkl'), 'rb') as f:
     try:
@@ -112,13 +119,11 @@ with open(other_stuff.resource_path('scores.pkl'), 'rb') as f:
     except EOFError:
         f.close()
 
-
 # append current score to score file and list
 with open(other_stuff.resource_path('scores.pkl'), 'ab') as f:
     pickle.dump(current_score, f)
     scores.append(current_score)
     f.close()
-
 
 # Thank you to https://stackoverflow.com/users/14796104/vibhu-upamanyu for
 # this code that removes duplicate initials and sorts by the initial's
@@ -136,11 +141,19 @@ scores = list(dict_of_dict.values())
 scores = sorted(scores, key=lambda k: k['score'])
 scores.reverse()
 
-while True:
-    event, values = window3.read(timeout=1)
-    for i, score_dict in enumerate(scores):
+
+def display_leaderboard(score_dict_list):
+    for i, score_dict in enumerate(score_dict_list):
         if i < 10:
             window3[f'-P{i + 1}-'].update(f"{i + 1}: {scores[i]['initials']} - {scores[i]['score']} wpm")
+    if len(score_dict_list) == 0:
+        window3['-P1-'].update("Error: No scores to display!")
+
+
+while True:
+    event, values = window3.read(timeout=1)
+
+    display_leaderboard(scores)
 
     if event == '-EXIT-' or event == sg.WIN_CLOSED:
         sys.exit()

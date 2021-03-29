@@ -11,13 +11,13 @@ sg.SetOptions(font="Bahnschrift 25")
 type_test_layout = [
     [sg.Text(
         "Quick, type!",
-        size=(29, None),
+        size=(34, None),
         pad=(1, 1),
         justification='left',
         key='-TEXT-'),
 
         sg.Text("0 seconds",
-                size=(15, None),
+                size=(10, None),
                 justification='r',
                 key='-TIMER-')],
 

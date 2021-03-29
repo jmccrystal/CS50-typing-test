@@ -2,6 +2,7 @@
 import pickle
 import random
 import output
+import sys
 import os
 
 word_amount = 10
