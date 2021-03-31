@@ -2,10 +2,9 @@
 import pickle
 import random
 import output
-import sys
 import os
 
-word_amount = 10
+word_amount = 1
 
 exit_icon = output.exit
 ok_icon = output.ok

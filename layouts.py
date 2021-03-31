@@ -11,13 +11,13 @@ sg.SetOptions(font="Bahnschrift 25")
 type_test_layout = [
     [sg.Text(
         "Quick, type!",
-        size=(34, None),
+        size=(32, None),
         pad=(1, 1),
         justification='left',
         key='-TEXT-'),
 
         sg.Text("0 seconds",
-                size=(10, None),
+                size=(12, None),
                 justification='r',
                 key='-TIMER-')],
 
@@ -75,6 +75,44 @@ enter_name_layout = [
 
 # noinspection PyTypeChecker
 leaderboard_layout = [
+    [sg.Text("Your Scores:",
+             size=(20, None),
+             justification='c',
+             pad=(None, 10),
+             key='-TEXT-')],
+    [sg.Text("1: ",
+             size=(20, None),
+             key='-P1-')],
+    [sg.Text("2: ",
+             size=(20, None),
+             key='-P2-')],
+    [sg.Text("3: ",
+             size=(20, None),
+             key='-P3-')],
+    [sg.Text("4: ",
+             size=(20, None),
+             key='-P4-')],
+    [sg.Text("5: ",
+             size=(20, None),
+             key='-P5-')],
+    [sg.Text("6: ",
+             size=(20, None),
+             key='-P6-')],
+    [sg.Text("7: ",
+             size=(20, None),
+             key='-P7-')],
+    [sg.Text("8: ",
+             size=(20, None),
+             key='-P8-')],
+    [sg.Text("9: ",
+             size=(20, None),
+             key='-P9-')],
+    [sg.Text("10: ",
+             size=(20, None),
+             key='-P10-')]
+]
+
+leaderboard_layout2 = [
     [sg.Text("Top 10 scores:",
              size=(20, None),
              justification='c',
