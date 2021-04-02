@@ -27,10 +27,32 @@ def get_scores():
 @app.route('/add_score/<string:initials>/<int:score>', methods=['POST'])
 def add_score(initials, score):
     current_score = {'initials': initials.upper(), 'score': score}
+    if current_score['initials'] in ['CUM', 'DIC', 'DIK', 'LOL', 'LIT']:
+        return 'Invalid initials!'
     with open('online_leaderboard.pkl', 'ab') as f:
         pickle.dump(current_score, f)
         f.close()
         return "Successfully added!"
+
+
+@app.route('/remove_score/<string:initials>/<int:score>', methods=['POST'])
+def remove_score(initials, score):
+    data = []
+    dict_to_remove = {'initials': initials.upper(), 'score': score}
+    with open('online_leaderboard.pkl', 'rb') as f:
+        try:
+            while True:
+                data.append(pickle.load(f))
+        except EOFError:
+            f.close()
+    with open('online_leaderboard.pkl', 'wb') as f:
+        for i, dictionary in enumerate(data):
+            if dictionary == dict_to_remove:
+                del data[i]
+        for dictionary in data:
+            pickle.dump(dictionary, f)
+        f.close()
+        return "Successfully removed!"
 
 
 if __name__ == '__main__':

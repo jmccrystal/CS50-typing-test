@@ -4,7 +4,7 @@ import random
 import output
 import os
 
-word_amount = 1
+word_amount = 10
 
 exit_icon = output.exit
 ok_icon = output.ok
