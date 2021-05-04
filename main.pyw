@@ -1,14 +1,18 @@
-import pickle
+# import pickle
 import sys
 import time
 import requests
+import json
 
 import PySimpleGUI as sg
 
 import layouts
 import other_stuff
-import server_ip
 
+with open('server_ip.txt', 'r') as f:
+    server_ip = f.read()
+
+print(server_ip)
 
 time_taken = 0
 
@@ -33,6 +37,8 @@ def verify_test(user_typing):
         return False
 
 
+banned_initials = []
+
 # Typing test event loop
 while True:
     event, values = window.read(timeout=1)
@@ -43,7 +49,8 @@ while True:
             score = round(other_stuff.word_amount / (time_taken / 60))
             window['-TEXT-'].update(f"Nice! Your speed was {score} WPM.")
             window.read(timeout=1)
-            time.sleep(2)
+            banned_initials = json.loads(requests.post(f'http://{server_ip}/get_banned_initials').text)
+            time.sleep(1)
             window.close()
             break
     except TypeError:
@@ -75,8 +82,6 @@ while True:
 window2 = sg.Window('Enter Initials', enter_name_layout, no_titlebar=False, grab_anywhere=False)
 
 initials = ""
-
-banned_initials = ['NIG', 'FAG', 'FUC', 'FUK']
 
 while True:
     event, values = window2.read()
@@ -111,10 +116,10 @@ current_player_scores = []
 
 try:
     # get scores from server
-    online_scores = requests.post(f'http://{server_ip.server_ip}/get_scores').json()
+    online_scores = requests.post(f'http://{server_ip}/get_scores').json()
 
     # add current score to online database
-    requests.post(f'http://{server_ip.server_ip}/add_score/{current_score["initials"]}/{current_score["score"]}')
+    requests.post(f'http://{server_ip}/add_score/{current_score["initials"]}/{current_score["score"]}')
 except ConnectionError:
     print("No connection!")
 

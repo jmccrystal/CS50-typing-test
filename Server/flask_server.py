@@ -2,12 +2,20 @@ from flask import Flask, jsonify
 import pickle
 import os
 
+import banned_initials
+
 app = Flask(__name__)
+banned_initials = banned_initials.banned_initials
 
 
 @app.route('/')
 def hello_world():
     return 'Hello world!'
+
+
+@app.route('/get_banned_initials', methods=['POST'])
+def get_invalid_words():
+    return jsonify(banned_initials)
 
 
 @app.route('/get_scores', methods=['POST'])
@@ -27,8 +35,6 @@ def get_scores():
 @app.route('/add_score/<string:initials>/<int:score>', methods=['POST'])
 def add_score(initials, score):
     current_score = {'initials': initials.upper(), 'score': score}
-    if current_score['initials'] in ['CUM', 'DIC', 'DIK', 'LOL', 'LIT']:
-        return 'Invalid initials!'
     with open('online_leaderboard.pkl', 'ab') as f:
         pickle.dump(current_score, f)
         f.close()
@@ -56,4 +62,4 @@ def remove_score(initials, score):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=2222, debug=True)
+    app.run(port=2222, debug=True)

@@ -1,0 +1,1 @@
+banned_initials = ['CUM', 'DIC', 'DIK', 'LOL', 'LIT', 'NIG', 'FAG', 'FUC', 'FUK', 'SHT']
