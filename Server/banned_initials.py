@@ -1,1 +1,2 @@
-banned_initials = ['CUM', 'DIC', 'DIK', 'LOL', 'LIT', 'NIG', 'FAG', 'FUC', 'FUK', 'SHT']
+# Insert initials to ban in this array
+banned_initials = []
