@@ -1,20 +1,20 @@
 # This file is for text generation and other variables
 import pickle
 import random
-import output
+from src.client.data import icons
 import os
 
 word_amount = 10
 
-exit_icon = output.exit
-ok_icon = output.ok
+exit_icon = icons.exit
+ok_icon = icons.ok
 
 
 def resource_path(relative_path):
     return os.path.join('.', relative_path)
 
 
-with open(resource_path('words.pkl'), 'rb') as f:
+with open(resource_path('data/words.pkl'), 'rb') as f:
     try:
         while True:
             words = pickle.load(f)

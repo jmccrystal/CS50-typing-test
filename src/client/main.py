@@ -7,7 +7,7 @@ import json
 import PySimpleGUI as sg
 
 import layouts
-import other_stuff
+import loader
 
 with open('server_ip.txt', 'r') as f:
     server_ip = f.read()
@@ -21,7 +21,7 @@ enter_name_layout = layouts.enter_name_layout
 leaderboard_layout = layouts.leaderboard_layout
 leaderboard_layout2 = layouts.leaderboard_layout2
 
-words = other_stuff.type_test
+words = loader.type_test
 
 # Create the window
 window = sg.Window('Typing Test', type_test_layout, no_titlebar=False, grab_anywhere=False)
@@ -46,7 +46,7 @@ while True:
         if verify_test(values['-INPUT-']):
             test_running = False
             test_done = True
-            score = round(other_stuff.word_amount / (time_taken / 60))
+            score = round(loader.word_amount / (time_taken / 60))
             window['-TEXT-'].update(f"Nice! Your speed was {score} WPM.")
             window.read(timeout=1)
             banned_initials = json.loads(requests.post(f'http://{server_ip}/get_banned_initials').text)
@@ -129,21 +129,6 @@ for score in online_scores:
 for score in scores:
     print(score)
 
-"""
-# append scores from file into scores list
-with open(other_stuff.resource_path('scores.pkl'), 'rb') as f:
-    try:
-        while True:
-            scores.append(pickle.load(f))
-    except EOFError:
-        f.close()
-
-# append current score from list into file
-with open(other_stuff.resource_path('scores.pkl'), 'ab') as f:
-    pickle.dump(current_score, f)
-    scores.append(current_score)
-    f.close()
-"""
 
 # append all scores with the same initials as current player into current_player_scores
 for score in scores:

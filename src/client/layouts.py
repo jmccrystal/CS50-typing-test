@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
-import other_stuff
+import loader
 
-words = other_stuff.type_test
+words = loader.type_test
 time_taken = 0
 
 sg.theme('Dark')
@@ -25,7 +25,7 @@ type_test_layout = [
         key='-INPUT-', pad=(None, 25))],
 
     [sg.Button('',
-               image_data=other_stuff.exit_icon,
+               image_data=loader.exit_icon,
                button_color=(sg.theme_background_color(),
                              sg.theme_background_color()),
                border_width=0,
@@ -33,7 +33,7 @@ type_test_layout = [
                key='-EXIT-'),
 
      sg.Button('',
-               image_data=other_stuff.ok_icon,
+               image_data=loader.ok_icon,
                button_color=(sg.theme_background_color(),
                              sg.theme_background_color()),
                border_width=0,
@@ -56,7 +56,7 @@ enter_name_layout = [
               key='-INPUT-')],
 
     [sg.Button('',
-               image_data=other_stuff.exit_icon,
+               image_data=loader.exit_icon,
                button_color=(sg.theme_background_color(),
                              sg.theme_background_color()),
                border_width=0,
@@ -64,7 +64,7 @@ enter_name_layout = [
                key='-EXIT-'),
 
      sg.Button('',
-               image_data=other_stuff.ok_icon,
+               image_data=loader.ok_icon,
                button_color=(sg.theme_background_color(),
                              sg.theme_background_color()),
                border_width=0,
