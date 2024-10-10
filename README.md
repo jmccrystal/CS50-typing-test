@@ -1,3 +1,5 @@
+
+
 # Typing Test Application
 
 ## Overview
@@ -22,41 +24,45 @@ Here are some screenshots of the application in action:
 
 ## Components
 
-### Client-side
-
 1. `main.py`: The main script that runs the client-side application.
 2. `layouts.py`: Contains the GUI layouts for different windows.
 3. `other_stuff.py`: Includes utility functions and variables.
 4. `icons.py`: Stores icon data for GUI buttons.
-
-### Server-side
-
-1. `server.py`: Flask application for managing scores and banned initials.
-2. `banned_initials.py`: List of banned initials.
+5. `server.py`: Flask application for managing scores and banned initials.
+6. `banned_initials.py`: List of banned initials.
 
 ## Setup and Installation
 
 1. Ensure you have Python 3.x installed on your system.
-2. Install the required packages:
+2. Download all the project files.
+3. Install the required packages:
    ```
    pip install PySimpleGUI requests Flask
    ```
-3. Create a file named `server_ip.txt` in the same directory as `main.py` and add the IP address of your server.
+4. Create a file named `server_ip.txt` in the same directory as `main.py`.
 
 ## Running the Application
 
-1. Start the server:
-   ```
-   python server.py
-   ```
+### For Regular Users
+
+1. Open `server_ip.txt` and enter the IP address provided by the server host.
 2. Run the client application:
    ```
    python main.py
    ```
 
+### For Server Hosts
+
+1. Start the server:
+   ```
+   python server.py
+   ```
+2. Provide your server's IP address to other users.
+3. You can also run the client application as described for regular users.
+
 ## How to Play
 
-1. Launch the application.
+1. Launch the application by running `main.py`.
 2. Type the displayed words as quickly and accurately as possible.
 3. Press Enter or click the OK button when finished.
 4. Enter your initials (2 or 3 letters) when prompted.
@@ -86,7 +92,21 @@ Here are some screenshots of the application in action:
 - `server.py`: Flask server application
 - `banned_initials.py`: List of banned initials
 - `words.pkl`: Pickle file containing the word list for typing tests
-- `online_leaderboard.pkl`: Pickle file storing the online leaderboard data
-- `server_ip.txt`: Text file containing the server IP address
+- `online_leaderboard.pkl`: Pickle file storing the online leaderboard data (created when server is run)
+- `server_ip.txt`: Text file containing the server IP address (to be filled by users)
 
 ## Future Improvements
+
+- Add user authentication
+- Implement different difficulty levels
+- Create a web-based version of the application
+- Add more detailed statistics for typing performance
+- Implement a practice mode with targeted exercises
+
+## Contributing
+
+Contributions to improve the application are welcome. Please fork the repository and submit a pull request with your changes.
+
+## License
+
+This project is open-source and available under the MIT License.
