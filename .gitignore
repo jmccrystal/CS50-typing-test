@@ -1,6 +1,7 @@
 # auto-py-to-exe config
 config.json
 
+
 # Binary foler
 binary
 
@@ -135,3 +136,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+.DS_Store
+.gitattributes
